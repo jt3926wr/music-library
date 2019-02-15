@@ -1,6 +1,7 @@
 # music-library
 
 *This project is the final project for CSCI 2082-90 at Century College, Spring 2019*
+
 Authors: Anthony, Edwin
 
 ## Description
