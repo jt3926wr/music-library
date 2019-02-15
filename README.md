@@ -22,4 +22,4 @@ Browsing will take place on one page, and the user will be able to change how in
 ## Entry
 The user will be able to enter a new album to be displayed alongside a pre-populated list of albums.  The user will need to enter all the properties listed above.
 
-Entry will take place on a separate page.  The user may be able to select from an existing *Album Artist* and a selection of *genres*.  Once an album's base information is entered (*Album Artist*, *Album Name*, and *Year*), the user will be able to add tracks to the new album.  Tracks will have the *track number* provided, and each must include a *song title* and *artist*.
+Entry will take place on a separate page.  The user may be able to select from an existing **Album Artist** and a selection of **genres**.  Once an album's base information is entered (**Album Artist**, **Album Name**, and **Year**), the user will be able to add tracks to the new album.  Tracks will have the **track number** provided, and each must include a **song title** and **artist**.
