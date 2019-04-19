@@ -46,5 +46,5 @@ public class GUI extends JFrame {
 	}
 
 	private void initGUIComponents() {
-
+	}
 		
