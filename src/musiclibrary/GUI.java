@@ -29,22 +29,26 @@ public class GUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	/*
 	private DefaultTableModel tblAlbumsMdl = new DefaultTableModel(new String[] {"Album Artist", "Album Name",
-			"Year", "Track Number", "Song Title", "Song Artist", "Genre"}, 0);
+		"Year", "Track Number", "Song Title", "Song Artist", "Genre"}, 0);
+	*/
+	private DefaultTableModel tblAlbumsMdl = new DefaultTableModel(new String[] {"Track", "Title",
+		"Song Artist", "Album", "Year", "Album Artist", "Genre"}, 0);
 
 	private AlbumArtist albumArtists[];
 	
 	// Basic Genre list
 	private String genreArr[] = {
-			"Blues",
-			"Classical",
-			"Country",
-			"Electronic",
-			"Folk",
-			"Jazz",
-			"New Age",
-			"Reggae",
-			"Rock"
+		"Blues",
+		"Classical",
+		"Country",
+		"Electronic",
+		"Folk",
+		"Jazz",
+		"New Age",
+		"Reggae",
+		"Rock"
 	};
 
 	// Stores additional genres from supplied songs.
@@ -104,7 +108,7 @@ public class GUI extends JFrame {
 			pnl.add(new JLabel("Enter song artist:"));
 			pnl.add(tfSongArtist);
 
-			JOptionPane.showMessageDialog(this, pnl); // This line of code shows jdialog window to allow
+			JOptionPane.showMessageDialog(this, pnl, "Add New Album/Song", JOptionPane.INFORMATION_MESSAGE); // This line of code shows jdialog window to allow
 			// the user adding new album (or song into existing album).
 
 			int albArtIndex = comboAlbumArtists.getSelectedIndex();
@@ -190,9 +194,10 @@ public class GUI extends JFrame {
 		for (AlbumArtist alArt: albumArtists) { // Loop through the album artist list.
 			for (Album alb: alArt.getAlbumList()) { // Loop through the albums in album artist.
 				for (Song song: alb.getSongList()) { // Loop through the songs.
-					tblAlbumsMdl.addRow(new String[] {alArt.getName(), alb.getName(), 
-						alb.getYear() + "", song.getTrack() + "", song.getTitle(), 
-						song.getArtist(), song.getGenre()});
+					// Place data in order to match table columns
+					tblAlbumsMdl.addRow(new String[] {song.getTrack() + "", song.getTitle(), 
+							song.getArtist(), alb.getName(), alb.getYear() + "", 
+							alArt.getName(), song.getGenre()});
 					// If song has genre not already in list, add it
 					if(!genres.contains(song.getGenre())) {
 						genres.add(song.getGenre());
