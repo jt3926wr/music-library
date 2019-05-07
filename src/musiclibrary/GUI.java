@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,9 +33,22 @@ public class GUI extends JFrame {
 			"Year", "Track Number", "Song Title", "Song Artist", "Genre"}, 0);
 
 	private AlbumArtist albumArtists[];
+	
+	// Basic Genre list
+	private String genreArr[] = {
+			"Blues",
+			"Classical",
+			"Country",
+			"Electronic",
+			"Folk",
+			"Jazz",
+			"New Age",
+			"Reggae",
+			"Rock"
+	};
 
-	// Stores all possible genres.
-	private Set<String> genres = new HashSet<>();
+	// Stores additional genres from supplied songs.
+	private ArrayList<String> genres = new ArrayList<String>();
 
 	private JTable tblAlbums = new JTable(tblAlbumsMdl);
 
@@ -166,17 +183,25 @@ public class GUI extends JFrame {
 	// Updates album table.
 	public void updateTbl(AlbumArtist albumArtists[]) {
 		this.albumArtists = albumArtists;
+		
+		Collections.addAll(genres, genreArr);
+		
 		tblAlbumsMdl.setRowCount(0); // Clear table before update to avoid appending rows.
 		for (AlbumArtist alArt: albumArtists) { // Loop through the album artist list.
 			for (Album alb: alArt.getAlbumList()) { // Loop through the albums in album artist.
 				for (Song song: alb.getSongList()) { // Loop through the songs.
 					tblAlbumsMdl.addRow(new String[] {alArt.getName(), alb.getName(), 
-							alb.getYear() + "", song.getTrack() + "", song.getTitle(), 
-							song.getArtist(), song.getGenre()});
-					genres.add(song.getGenre());
+						alb.getYear() + "", song.getTrack() + "", song.getTitle(), 
+						song.getArtist(), song.getGenre()});
+					// If song has genre not already in list, add it
+					if(!genres.contains(song.getGenre())) {
+						genres.add(song.getGenre());
+					}
 				}
 			}
 		}
+		// Sort genres
+		Collections.sort(genres);
 	}
 
 }
