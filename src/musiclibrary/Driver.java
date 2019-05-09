@@ -1,8 +1,15 @@
 package musiclibrary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
 import javax.swing.SwingUtilities;
 
 public class Driver {
+
+	
+
 	public static void main(String[] args) {
 		// Songs for album 1
 		Song s1 = new Song("Red Moon Rising", "Some cool person", "Rock", 1);
@@ -26,6 +33,9 @@ public class Driver {
 
 		// Album Artist (who made the album)
 		AlbumArtist albumArtist1 = new AlbumArtist("The Spacers", albumList1);
+		//AlbumArtist.addAlbumArtist(albumArtist1);
+		AlbumArtist[] albumArtistList = {albumArtist1};
+		
 
 
 		// Test output
@@ -40,10 +50,11 @@ public class Driver {
 
 		// AlbumArtist
 		System.out.println(albumArtist1.toString());
+		
 		SwingUtilities.invokeLater(() -> {
-			GUI gui = new GUI("Music Library");
+			GUI gui = new GUI();
 			gui.setVisible(true);
-		    gui.updateTbl(new AlbumArtist[] {albumArtist1});
+		    gui.updateTbl(albumArtistList);
 		});
 	}
 }
