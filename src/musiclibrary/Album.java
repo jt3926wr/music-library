@@ -32,6 +32,10 @@ public class Album {
 	
 	
 	// Constructor
+	public Album() {
+		
+	}
+	
 	public Album(String name, int year, Song[] songList) {
 		this.name = name;
 		this.year = year;

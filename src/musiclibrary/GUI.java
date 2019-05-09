@@ -72,6 +72,8 @@ public class GUI extends JFrame implements ActionListener {
 		"Reggae",
 		"Rock"
 	};
+	
+	boolean firstUpdate = true; // Stores whether to update the table model with the genre list
 
 	// Stores additional genres from supplied songs.
 	private ArrayList<String> genres = new ArrayList<String>();
@@ -138,14 +140,21 @@ public class GUI extends JFrame implements ActionListener {
 	
 	// Build Add Band Panel
 	private void buildAddBandPanel() {
+		tfAlbumArtist.setText("");
+		
 		bandPanel.add(lblAddBand);
 		bandPanel.add(tfAlbumArtist);
 		
 		JOptionPane.showMessageDialog(this, bandPanel, "Add New Album Artist", JOptionPane.INFORMATION_MESSAGE);
 		
-		for(int i=0; i<albumArtists.length; i++) {
-			System.out.println(albumArtists[i].getName());
+		if(tfAlbumArtist.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No new album artist was entered.", "Failed", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
+		AlbumArtist[] result = Arrays.copyOf(albumArtists, albumArtists.length + 1);
+		Album[] placeholderAlbum = {new Album()};
+		result[albumArtists.length] =  new AlbumArtist(tfAlbumArtist.getText(), placeholderAlbum);
+		buildAddAlbumPanel();
 	}
 	
 	
@@ -164,7 +173,11 @@ public class GUI extends JFrame implements ActionListener {
 
 		JTextField tfAlbName = new JTextField();
 		int curYear = LocalDate.now().getYear();
+		
 		JSpinner spinnerAlbYear = new JSpinner(new SpinnerNumberModel(curYear, 1900, curYear, 1));
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spinnerAlbYear, "#");
+		spinnerAlbYear.setEditor(editor);
+		
 		JTextField tfSongTitle = new JTextField();
 		JTextField tfSongArtist = new JTextField();
 
@@ -260,7 +273,10 @@ public class GUI extends JFrame implements ActionListener {
 	public void updateTbl(AlbumArtist[] albumArtists) {
 		this.albumArtists = albumArtists;
 		
-		Collections.addAll(genres, genreArr);
+		if(firstUpdate) {
+			Collections.addAll(genres, genreArr);
+			firstUpdate = false;
+		}
 		
 		tblAlbumsMdl.setRowCount(0); // Clear table before update to avoid appending rows.
 		for (AlbumArtist alArt: albumArtists) { // Loop through the album artist list.
